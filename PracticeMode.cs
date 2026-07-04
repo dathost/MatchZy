@@ -34,7 +34,7 @@ namespace MatchZy
 
         public void Teleport(CCSPlayerController player)
         {
-            player!.PlayerPawn.Value!.Teleport(PlayerPosition, PlayerAngle, new Vector(0, 0, 0));
+            player!.PlayerPawn.Value!.TeleportKeepingModelUpright(PlayerPosition, PlayerAngle, new Vector(0, 0, 0));
         }
 
         public override bool Equals(object? obj)
@@ -232,7 +232,7 @@ namespace MatchZy
                     // Adjusting the spawnNumber according to the array index.
                     spawnNumber -= 1;
                     if (spawnsData.ContainsKey(teamNum) && spawnsData[teamNum].Count <= spawnNumber) return;
-                    player!.PlayerPawn.Value!.Teleport(spawnsData[teamNum][spawnNumber].PlayerPosition, spawnsData[teamNum][spawnNumber].PlayerAngle, new Vector(0, 0, 0));
+                    player!.PlayerPawn.Value!.TeleportKeepingModelUpright(spawnsData[teamNum][spawnNumber].PlayerPosition, spawnsData[teamNum][spawnNumber].PlayerAngle, new Vector(0, 0, 0));
                     player!.PlayerPawn.Value!.ResetNoclipToWalk();
                     // ReplyToUserCommand(player, $"Moved to spawn: {spawnNumber+1}/{spawnsData[teamNum].Count}");
                     ReplyToUserCommand(player, Localizer["matchzy.pm.movedtospawn", $"{spawnNumber + 1}/{spawnsData[teamNum].Count}"]);
@@ -646,7 +646,7 @@ namespace MatchZy
                                     QAngle loadedPlayerAngle = new QAngle(float.Parse(angArray[0]), float.Parse(angArray[1]), float.Parse(angArray[2]));
 
                                     // Teleport player
-                                    player!.PlayerPawn!.Value!.Teleport(loadedPlayerPos, loadedPlayerAngle, new Vector(0, 0, 0));
+                                    player!.PlayerPawn!.Value!.TeleportKeepingModelUpright(loadedPlayerPos, loadedPlayerAngle, new Vector(0, 0, 0));
 
                                     // Change player inv slot
                                     switch (lineupInfo["Type"])
@@ -995,7 +995,7 @@ namespace MatchZy
                             AddTimer(0.2f, () => tempPlayer.PlayerPawn.Value!.Bot!.IsCrouching = true);
                         }
 
-                        tempPlayer.PlayerPawn.Value!.Teleport(botOwnerPosition.PlayerPosition, botOwnerPosition.PlayerAngle, new Vector(0, 0, 0));
+                        tempPlayer.PlayerPawn.Value!.TeleportKeepingModelUpright(botOwnerPosition.PlayerPosition, botOwnerPosition.PlayerAngle, new Vector(0, 0, 0));
                         TemporarilyDisableCollisions(botOwner, tempPlayer);
                         unusedBotFound = true;
                     }
@@ -1066,7 +1066,7 @@ namespace MatchZy
         private static void ElevatePlayer(CCSPlayerController? player)
         {
             if (player == null || !player.IsValid || !player.PlayerPawn.IsValid || player.PlayerPawn.Value == null) return;
-            player.PlayerPawn.Value.Teleport(new Vector(player.PlayerPawn.Value.CBodyComponent!.SceneNode!.AbsOrigin.X, player.PlayerPawn.Value.CBodyComponent!.SceneNode!.AbsOrigin.Y, player.PlayerPawn.Value.CBodyComponent!.SceneNode!.AbsOrigin.Z + 80.0f), player.PlayerPawn.Value.EyeAngles, new Vector(0, 0, 0));
+            player.PlayerPawn.Value.TeleportKeepingModelUpright(new Vector(player.PlayerPawn.Value.CBodyComponent!.SceneNode!.AbsOrigin.X, player.PlayerPawn.Value.CBodyComponent!.SceneNode!.AbsOrigin.Y, player.PlayerPawn.Value.CBodyComponent!.SceneNode!.AbsOrigin.Z + 80.0f), player.PlayerPawn.Value.EyeAngles, new Vector(0, 0, 0));
         }
 
         [GameEventHandler]
@@ -1098,7 +1098,7 @@ namespace MatchZy
                 {
                     if (pracUsedBots[player.UserId.Value]["position"] is Position botPosition)
                     {
-                        player.PlayerPawn.Value?.Teleport(botPosition.PlayerPosition, botPosition.PlayerAngle, new Vector(0, 0, 0));
+                        player.PlayerPawn.Value.TeleportKeepingModelUpright(botPosition.PlayerPosition, botPosition.PlayerAngle, new Vector(0, 0, 0));
                         bool isCrouched = (bool)pracUsedBots[player.UserId.Value]["crouchstate"];
                         if (isCrouched)
                         {
@@ -1790,7 +1790,7 @@ namespace MatchZy
                     closestIndex = index;
                 }
             }
-            player!.PlayerPawn.Value!.Teleport(teamSpawns[closestIndex].PlayerPosition, teamSpawns[closestIndex].PlayerAngle, new Vector(0, 0, 0));
+            player!.PlayerPawn.Value!.TeleportKeepingModelUpright(teamSpawns[closestIndex].PlayerPosition, teamSpawns[closestIndex].PlayerAngle, new Vector(0, 0, 0));
             player!.PlayerPawn.Value!.ResetNoclipToWalk();
         }
 
@@ -1811,7 +1811,7 @@ namespace MatchZy
                     farthestIndex = index;
                 }
             }
-            player!.PlayerPawn.Value!.Teleport(teamSpawns[farthestIndex].PlayerPosition, teamSpawns[farthestIndex].PlayerAngle, new Vector(0, 0, 0));
+            player!.PlayerPawn.Value!.TeleportKeepingModelUpright(teamSpawns[farthestIndex].PlayerPosition, teamSpawns[farthestIndex].PlayerAngle, new Vector(0, 0, 0));
             player!.PlayerPawn.Value!.ResetNoclipToWalk();
         }
 
