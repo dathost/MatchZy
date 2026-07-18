@@ -388,6 +388,12 @@ namespace MatchZy
                 string savednadesfileName = "MatchZy/savednades.json";
                 string savednadesPath = Path.Join(Server.GameDirectory + "/csgo/cfg", savednadesfileName);
 
+                // Check if the file exists, if not, create it with an empty JSON object
+                if (!File.Exists(savednadesPath))
+                {
+                    File.WriteAllText(savednadesPath, "{}");
+                }
+
                 try
                 {
                     // Read existing JSON content
@@ -469,6 +475,12 @@ namespace MatchZy
                         string savednadesfileName = "MatchZy/savednades.json";
                         string savednadesPath = Path.Join(Server.GameDirectory + "/csgo/cfg", savednadesfileName);
 
+                        // Check if the file exists, if not, create it with an empty JSON object
+                        if (!File.Exists(savednadesPath))
+                        {
+                            File.WriteAllText(savednadesPath, "{}");
+                        }
+
                         // Read existing JSON content
                         string existingJson = File.ReadAllText(savednadesPath);
 
@@ -540,6 +552,12 @@ namespace MatchZy
             string savednadesfileName = "MatchZy/savednades.json";
             string savednadesPath = Path.Join(Server.GameDirectory + "/csgo/cfg", savednadesfileName);
 
+            // Check if the file exists, if not, create it with an empty JSON object
+            if (!File.Exists(savednadesPath))
+            {
+                File.WriteAllText(savednadesPath, "{}");
+            }
+
             try
             {
                 // Read existing JSON content
@@ -601,6 +619,12 @@ namespace MatchZy
                 // Define the file path
                 string savednadesfileName = "MatchZy/savednades.json";
                 string savednadesPath = Path.Join(Server.GameDirectory + "/csgo/cfg", savednadesfileName);
+
+                // Check if the file exists, if not, create it with an empty JSON object
+                if (!File.Exists(savednadesPath))
+                {
+                    File.WriteAllText(savednadesPath, "{}");
+                }
 
                 try
                 {
